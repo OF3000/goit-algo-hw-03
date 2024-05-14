@@ -25,4 +25,5 @@ def draw_koch_curve(order, size=300):
     window.mainloop()
 
 # Виклик функції
-draw_koch_curve(3)
+level=input("Input level ")
+draw_koch_curve(int(level))

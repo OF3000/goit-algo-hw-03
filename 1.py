@@ -1,16 +1,17 @@
 from pathlib import Path
 import shutil
+import argparse
 
 
-def copy_files(root : Path, dist : Path = Path("dist")):
+def copy_files(root : Path, dest : Path):
     try:
         for item in root.iterdir():
             if item.is_dir():
-                copy_files(item,dist)
+                copy_files(item,dest)
             else:
                 ext = item.suffix[1:]
                 if ext:
-                    ext_d = dist / ext
+                    ext_d = dest / ext
                     ext_d.mkdir(parents=True, exist_ok=True)
                     shutil.copy(item, ext_d)
     except Exception as e:
@@ -18,6 +19,10 @@ def copy_files(root : Path, dist : Path = Path("dist")):
 
 
 if __name__ == "__main__":
-    root = Path("/Users/fo/Repo/goit-algo-hw-03/")
-    copy_files(root,root / Path("Dir"))
-    #copy_files(root)
+    root = Path(input("Enter source folder "))
+    dest = (input("Enter destination folder "))
+    if not dest:
+        dest = "dist"
+    copy_files(root,Path(dest))
+  
+
