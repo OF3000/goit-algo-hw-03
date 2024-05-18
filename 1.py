@@ -2,6 +2,11 @@ from pathlib import Path
 import shutil
 import argparse
 
+def user_input():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("source", type = Path)
+    parser.add_argument("dest", type = Path, nargs='?',default=Path('dist'))
+    return parser.parse_args()
 
 def copy_files(root : Path, dest : Path):
     try:
@@ -19,10 +24,9 @@ def copy_files(root : Path, dest : Path):
 
 
 if __name__ == "__main__":
-    root = Path(input("Enter source folder "))
-    dest = (input("Enter destination folder "))
-    if not dest:
-        dest = "dist"
-    copy_files(root,Path(dest))
+    args = user_input()
+    print(args.source, args.dest)
+
+    copy_files(args.source, args.dest)
   
 
